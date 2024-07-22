@@ -48,8 +48,8 @@ const verifyUser = async (req, res, next) => {
 }
 router.post("/apply", verifyUser, async (req, res) => {
     try {
-        console.log(req.user)
         const { oppurtunity } = req.body;
+        console.log(oppurtunity)
         const applyOppurtunity = new AppliedOppurtunity({
             userId: req.user.email,
             id: oppurtunity.id,
@@ -76,13 +76,13 @@ router.get("/applied-oppurtunities", verifyUser, async (req, res) => {
 router.delete("/applied-oppurtunities", async (req, res) => {
     try {
         console.log(req.body.id)
-        const user = await AppliedOppurtunity.findOne({ _id : req.body.id })
+        const user = await AppliedOppurtunity.findOne({ _id: req.body.id })
         if (!user) {
             console.log("error")
             return res.status(400).json({ message: "Opportunity does not exists !" })
         }
         const deleteOpportunity = await AppliedOppurtunity.deleteOne({ _id: req.body.id })
-        res.status(200).json({status: true, message:"Opportunity deleted sucessfully !", oppurtunity:deleteOpportunity})
+        res.status(200).json({ status: true, message: "Opportunity deleted sucessfully !", oppurtunity: deleteOpportunity })
     } catch (error) {
         res.status(500).json({ error: error })
     }
@@ -94,4 +94,18 @@ router.get("/logout", (req, res) => {
     res.clearCookie('token')
     return res.json({ status: true, message: "Logged out successfully" })
 })
+
+router.get('/profile', verifyUser, async (req, res) => {
+    try {
+        const userId = req.user.email;
+        // Fetch user details from your database
+        const user = await UserModel.findOne({ email: userId })
+        if (!user) {
+            return res.status(404).json({ status: false, error: 'User not found' });
+        }
+        res.json({status:true, user});
+    } catch (err) {
+        return res.status(500).json({ message: 'Internal server error', error: err });
+    }
+});
 module.exports = router;

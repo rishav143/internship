@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios, { Axios } from "axios"
 import { useNavigate } from 'react-router-dom'
+import styles from "../CSSModule/Dashboard.module.css"
 export default function Dashboard({ setDisplay }) {
     const [appliedOppurtunites, setAppliedOppurtunities] = useState([])
     const navigate = useNavigate()
@@ -50,18 +51,20 @@ export default function Dashboard({ setDisplay }) {
         }
     }
     return (
-        <div>
-            <h1>Dashboard</h1>
+        <div className={styles.container}>
+            <div className={styles.header}>
+                <h1>Dashboard</h1>
+                <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
+            </div>
             <h2>Applied Oppurtunities</h2>
-            <button onClick={handleLogout}>Logout</button>
-            <div>
+            <div className={styles.opportunitiesContainer}>
                 {appliedOppurtunites.map((oppurtunity, index) => (
-                    <div key={index}>
+                    <div key={index} className={styles.opportunityCard}>
                         <h1>{oppurtunity.profile_name}</h1>
                         <p><strong>Company: </strong> {oppurtunity.company_name}</p>
                         <p><strong>Stipend: </strong> {oppurtunity.stipend}</p>
                         <p><strong>Duration: </strong> {oppurtunity.duration}</p>
-                        <button onClick={() => handleCancel(index)}>Click to cancel</button>
+                        <button onClick={() => handleCancel(index) }className={styles.cancelButton}>Click to cancel</button>
                     </div>
                 ))}
             </div>
