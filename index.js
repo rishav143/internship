@@ -21,10 +21,7 @@ app.get('*', (req, res) => {
 
 //connecting to mongobd using Mongoose
 const dbURI = process.env.MONGODB_URI;
-mongoose.connect(dbURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+mongoose.connect(dbURI)
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.log(err));
 
