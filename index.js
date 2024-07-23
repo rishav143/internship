@@ -1,4 +1,4 @@
-require('dotenv').config();
+const dotenv = require('dotenv').config();
 const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
@@ -9,6 +9,9 @@ const path = require('path');
 const cookieParser = require("cookie-parser")
 app.use(bodyParser.json())
 app.use(cookieParser())
+
+dotenv.config();
+
 app.use(cors({
     origin:["http://localhost:3001"],
     credentials:true
