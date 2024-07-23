@@ -1,4 +1,4 @@
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
@@ -10,7 +10,6 @@ const cookieParser = require("cookie-parser")
 app.use(bodyParser.json())
 app.use(cookieParser())
 
-dotenv.config();
 
 app.use(cors({
     origin:["http://localhost:3001"],
