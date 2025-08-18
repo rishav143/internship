@@ -11,7 +11,7 @@ app.use(bodyParser.json())
 app.use(cookieParser())
 
 app.use(cors({
-    origin:["http://localhost:3001"],
+    origin:["http://localhost:3001", "https://internportal-vr68.onrender.com"],
     credentials:true
 }))
 // use the client app
